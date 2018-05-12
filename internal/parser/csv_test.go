@@ -12,6 +12,7 @@ func TestCSV(t *testing.T) {
 	headers, hotel, hotel2 := createExpectation()
 	t.Run("Testing parseLine ", func(t *testing.T) {
 		expected := hotel
+
 		csv := `The Gibson,"63847 Lowe Knoll, East Maxine, WA 97030-4876",5,Dr. Sinda Wyman,1-270-665-9933x1626, http://www.paucek.com/search.htm`
 		reader := CSVReader{}
 		reader.headers = headers
@@ -36,7 +37,9 @@ func TestCSV(t *testing.T) {
 
 	t.Run("Testing Corvert", func(t *testing.T) {
 
-		expected := []model.Hotel{hotel, hotel2}
+		expected := model.Hotels{
+			Hotels: []model.Hotel{hotel, hotel2},
+		}
 
 		file, _ := os.Open("../../data/data.csv")
 

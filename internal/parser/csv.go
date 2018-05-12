@@ -16,7 +16,7 @@ type CSVReader struct {
 }
 
 // Convert will convert to Hotel Model
-func (c *CSVReader) Convert(file *os.File) (hotels []model.Hotel) {
+func (c *CSVReader) Convert(file *os.File) (hotels model.Hotels) {
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
 
@@ -27,7 +27,7 @@ func (c *CSVReader) Convert(file *os.File) (hotels []model.Hotel) {
 		}
 		hotel, err := c.parseLineToHotel(scanner.Text())
 		if err == nil {
-			hotels = append(hotels, hotel)
+			hotels.Hotels = append(hotels.Hotels, hotel)
 		}
 	}
 	return hotels
