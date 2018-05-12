@@ -1,0 +1,11 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+     - "5000:5000"
+    command: fresh -c fresh_runner.conf cmd/server/main.go
+    volumes:
+      - ".:/go/src/github.com/fabriciojsil/convert-csv-data"
+  redis:
+    image: "redis:alpine"
