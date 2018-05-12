@@ -14,7 +14,13 @@ func main() {
 	format := flag.String("format", "json", "a string")
 	flag.Parse()
 
-	service.DeliveryFile(string(*format), string(*file))
+	savedOn, err := service.DeliveryFile(string(*format), string(*file))
+	if err != nil {
+		fmt.Println("Opss:", err.Error())
+		fmt.Println("Finished in ", time.Since(start))
+	} else {
+		fmt.Println("Saved on ", savedOn)
+		fmt.Println("Finished in ", time.Since(start))
+	}
 
-	fmt.Println(time.Since(start))
 }
