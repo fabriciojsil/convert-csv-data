@@ -1,5 +1,6 @@
 package presenter
 
 type Presenter interface {
-	Parser() []byte
+	Parser()
+	Present(string) error
 }
