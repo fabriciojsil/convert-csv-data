@@ -5,12 +5,12 @@ import (
 )
 
 type Hotel struct {
-	Name    string
-	Address string
-	Stars   int
-	Contact string
-	Phone   string
-	URL     string
+	Name    string `xml:"name" json:"name"`
+	Address string `xml:"address" json:"address"`
+	Stars   int    `xml:"stars" json:"stars"`
+	Contact string `xml:"contact" json:"contact"`
+	Phone   string `xml:"phone" json:"phone"`
+	URL     string `xml:"url" json:"url"`
 }
 
 func fixRating(stars int) (validStars int) {
