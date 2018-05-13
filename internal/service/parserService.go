@@ -9,7 +9,11 @@ import (
 	"github.com/fabriciojsil/convert-csv-data/internal/presenter"
 )
 
-func DeliveryFile(format, filePath string) (string, error) {
+const JSON = "json"
+const XML = "xml"
+const CSV = "csv"
+
+func DeliveryFile(format, filePath, field, order string) (string, error) {
 
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -17,17 +21,17 @@ func DeliveryFile(format, filePath string) (string, error) {
 	}
 
 	hotelsParser := parser.CSVReader{}
-	hotels := hotelsParser.Convert(file)
+	hotels := hotelsParser.Run(file, field, order)
 
 	p, definedFormat := factoryPresenter(format, hotels)
-	pathToSave := strings.Replace(filePath, "csv", definedFormat, 1)
+	pathToSave := strings.Replace(filePath, CSV, definedFormat, 1)
 	p.Parser()
 	p.Present(pathToSave)
 
 	if err != nil {
 		return "", err
 	}
-	return strings.Replace(pathToSave, "csv", format, 1), nil
+	return strings.Replace(pathToSave, CSV, format, 1), nil
 }
 
 func factoryPresenter(format string, hotels model.Hotels) (presenter.Presenter, string) {
@@ -37,15 +41,15 @@ func factoryPresenter(format string, hotels model.Hotels) (presenter.Presenter, 
 	)
 
 	switch format {
-	case "json":
+	case JSON:
 		p = &presenter.JSON{Hotels: hotels}
-		definedFormat = "json"
-	case "xml":
+		definedFormat = JSON
+	case XML:
 		p = &presenter.XML{Hotels: hotels}
-		definedFormat = "xml"
+		definedFormat = XML
 	default:
 		p = &presenter.JSON{Hotels: hotels}
-		definedFormat = "json"
+		definedFormat = JSON
 	}
 	return p, definedFormat
 }

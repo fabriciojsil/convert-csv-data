@@ -11,12 +11,24 @@ import (
 	"github.com/fabriciojsil/convert-csv-data/internal/model"
 )
 
+const ASC = "asc"
+const DESC = "desc"
+
 type CSVReader struct {
 	headers map[string]int
 }
 
+func validateOrdering(field, order string) (string, string, bool) {
+	if len(field) == 0 || (order != ASC && order != DESC) {
+		return "", "", false
+	}
+	return field, order, true
+}
+
 // Convert will convert to Hotel Model
-func (c *CSVReader) Convert(file *os.File) (hotels model.Hotels) {
+func (c *CSVReader) Run(file *os.File, field, order string) (hotels model.Hotels) {
+	field, order, toOrder := validateOrdering(field, order)
+
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
 
@@ -27,7 +39,11 @@ func (c *CSVReader) Convert(file *os.File) (hotels model.Hotels) {
 		}
 		hotel, err := c.parseLineToHotel(scanner.Text())
 		if err == nil {
-			hotels.Hotels = append(hotels.Hotels, hotel)
+			if toOrder {
+				hotels.InsertSortedBy(hotel, field, order)
+			} else {
+				hotels.InsertHotel(hotel)
+			}
 		}
 	}
 	return hotels

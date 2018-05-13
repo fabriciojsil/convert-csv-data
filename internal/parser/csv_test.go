@@ -35,8 +35,7 @@ func TestCSV(t *testing.T) {
 		}
 	})
 
-	t.Run("Testing Corvert", func(t *testing.T) {
-
+	t.Run("Testing Corvert without order", func(t *testing.T) {
 		expected := model.Hotels{
 			Hotels: []model.Hotel{hotel, hotel2},
 		}
@@ -44,7 +43,37 @@ func TestCSV(t *testing.T) {
 		file, _ := os.Open("../../data/data.csv")
 
 		reader := CSVReader{}
-		hotels := reader.Convert(file)
+		hotels := reader.Run(file, "", "ASCENDENT")
+
+		if !reflect.DeepEqual(hotels, expected) {
+			t.Errorf("The Struct is diferent, expected %v  Actual %v", expected, hotels)
+		}
+	})
+
+	t.Run("Testing Corvert with asc order by name ", func(t *testing.T) {
+		expected := model.Hotels{
+			Hotels: []model.Hotel{hotel2, hotel},
+		}
+
+		file, _ := os.Open("../../data/data.csv")
+
+		reader := CSVReader{}
+		hotels := reader.Run(file, "Name", ASC)
+
+		if !reflect.DeepEqual(hotels, expected) {
+			t.Errorf("The Struct is diferent, expected %v  Actual %v", expected, hotels)
+		}
+	})
+
+	t.Run("Testing Corvert with desc order by name ", func(t *testing.T) {
+		expected := model.Hotels{
+			Hotels: []model.Hotel{hotel, hotel2},
+		}
+
+		file, _ := os.Open("../../data/data.csv")
+
+		reader := CSVReader{}
+		hotels := reader.Run(file, "Name", DESC)
 
 		if !reflect.DeepEqual(hotels, expected) {
 			t.Errorf("The Struct is diferent, expected %v  Actual %v", expected, hotels)

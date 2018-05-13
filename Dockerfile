@@ -7,6 +7,6 @@ WORKDIR $GOPATH/src/github.com/fabriciojsil/convert-csv-data
 
 RUN go get -u github.com/pilu/fresh
 
-RUN go build -o convert-csv-data -i cmd/server/main.go
+RUN make build
 
-# ENTRYPOINT ./convert-csv-data
+CMD ./csv-converter -file=$FILE -format=$FORMAT

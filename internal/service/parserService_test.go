@@ -12,7 +12,7 @@ func TestParserService(t *testing.T) {
 	t.Run("Parsing a csv doesn't exists", func(t *testing.T) {
 		format := "json"
 		filePath := "../data/data.csv"
-		savedPath, err := DeliveryFile(format, filePath)
+		savedPath, err := DeliveryFile(format, filePath, "", "")
 
 		if err == nil {
 			t.Errorf("Must return err %v", err)
@@ -27,7 +27,7 @@ func TestParserService(t *testing.T) {
 		expectedFilePathSaved := "../../data/data.json"
 		format := "json"
 		filePath := "../../data/data.csv"
-		savedPath, err := DeliveryFile(format, filePath)
+		savedPath, err := DeliveryFile(format, filePath, "", "")
 
 		if err != nil {
 			t.Errorf("Mustn't return err %v", err)
@@ -42,7 +42,7 @@ func TestParserService(t *testing.T) {
 		expectedFilePathSaved := "../../data/data.xml"
 		format := "xml"
 		filePath := "../../data/data.csv"
-		savedPath, err := DeliveryFile(format, filePath)
+		savedPath, err := DeliveryFile(format, filePath, "", "")
 
 		if err != nil {
 			t.Errorf("Mustn't return err %v", err)
@@ -57,7 +57,7 @@ func TestParserService(t *testing.T) {
 		expectedFilePathSaved := "../../data/data.json"
 		format := "html"
 		filePath := "../../data/data.csv"
-		savedPath, err := DeliveryFile(format, filePath)
+		savedPath, err := DeliveryFile(format, filePath, "", "")
 
 		if err != nil {
 			t.Errorf("Mustn't return err %v", err)

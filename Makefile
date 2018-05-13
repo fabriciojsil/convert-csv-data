@@ -2,7 +2,7 @@ run: build
 	./csv-converter
 
 test:
-	go test ./cmd/... ./internal/...
+	go test -v ./cmd/... ./internal/...
 
 build:
 	go clean
