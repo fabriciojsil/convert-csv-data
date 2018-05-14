@@ -13,7 +13,7 @@
  make build
 ```
 
-> Run builded
+> Run built
 
 ``` shell
 ./csv-converter -file=path/to/file.csv -format=json -field=contact -order=asc
@@ -21,7 +21,7 @@
 
 ### Docker-compose environment
 
-**At docker-compose.yml**
+** At docker-compose.yml **
 
 > **FILE** env to define csv file to be converted - *required
 
