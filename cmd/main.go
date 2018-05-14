@@ -11,7 +11,7 @@ import (
 
 func main() {
 	start := time.Now()
-	file := flag.String("file", ".", "a string")
+	file := flag.String("file", "", "a string")
 	format := flag.String("format", "json", "a string")
 	field := flag.String("field", "", "a string")
 	order := flag.String("order", "asc", "a string")

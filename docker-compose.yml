@@ -1,11 +1,15 @@
 version: '3'
 services:
   web:
-    build: .
-    ports:
-     - "5000:5000"
-    command: fresh -c fresh_runner.conf cmd/server/main.go
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    entrypoint:
+      - ./docker-entrypoint.sh
+    environment:
+        FILE: data/data.csv
+        FORMAT: json
+        ORDER: asc
+        FIELD: Name
     volumes:
       - ".:/go/src/github.com/fabriciojsil/convert-csv-data"
-  redis:
-    image: "redis:alpine"
